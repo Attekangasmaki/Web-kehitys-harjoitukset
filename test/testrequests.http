@@ -1,0 +1,14 @@
+### testailua
+POST http:/localhost:3000/api/moro
+content-type: application/json;
+
+{
+    "sender": "Atte",
+    "message": "testitervehdys"
+}
+
+## items
+
+### get all items
+
+GET http:/localhost:3000/api/items
