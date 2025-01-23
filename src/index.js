@@ -1,4 +1,5 @@
 import express from 'express';
+import {getItems, getItemById, addItem, updateItem, deleteItem} from './items.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
@@ -7,6 +8,12 @@ app.use('/sivusto', express.static('public'));
 
 //middleware, joka lukee json-datan POST-pyyntöjen rungosta (body)
 app.use(express.json());
+
+app.get('/api/items', getItems);
+app.get('/api/items/:id', getItemById);
+app.post('/api/items', addItem);
+app.put('/api/items/:id/', updateItem);
+app.delete('/api/items/:id/', deleteItem);
 
 app.get('/api/', (req, res) => {
   res.send('Welcome to my REST API!');
