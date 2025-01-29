@@ -1,7 +1,6 @@
 import express from 'express';
 import {getItems, getItemById, addItem, updateItem, deleteItem} from './items.js';
-import { addUser, getUserById, userLogin } from './users.js';
-//import {}
+import {addUser, getUserById, userLogin } from './users.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
