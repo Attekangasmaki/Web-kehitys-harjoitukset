@@ -1,5 +1,7 @@
 import express from 'express';
 import {getItems, getItemById, addItem, updateItem, deleteItem} from './items.js';
+import { addUser, getUserById, userLogin } from './users.js';
+//import {}
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
@@ -14,6 +16,12 @@ app.get('/api/items/:id', getItemById);
 app.post('/api/items', addItem);
 app.put('/api/items/:id/', updateItem);
 app.delete('/api/items/:id/', deleteItem);
+
+
+app.post('/api/users/', addUser);
+app.get('/api/users/:id', getUserById);
+app.post('/api/users/', userLogin);
+
 
 app.get('/api/', (req, res) => {
   res.send('Welcome to my REST API!');
