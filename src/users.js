@@ -27,11 +27,10 @@ const users = [
 
 const addUser = (req, res) => {
   console.log('addUser request body', req.body);
-  if (req.body.name) {
-
+  const {username, password, email} = req.body;
+  if (username && password && email) {
     const latestId = users[users.length-1].id
-
-    const newUser = {id: latestId +1, username: req.body.name, password: req.body.password, email: req.body.email};
+    const newUser = {id: latestId +1, username, password, email,};
     users.push(newUser);
     res.status(201);
     return res.json({message: 'User added.'});
@@ -40,6 +39,7 @@ const addUser = (req, res) => {
   return res.json({message: 'Request is missing some property.'});
 
 };
+
 
 const getUserById = (req, res) => {
   console.log('getUserById', req.params.id);
@@ -54,12 +54,11 @@ const getUserById = (req, res) => {
 
 
 const userLogin = (req, res) => {
-  console.log('userLogin', req.params.email, req.params.password);
-
-
-  const user = users.find(user => user.email === req.params.email);
-
-
+  const {username, password} = req.body;
+  if (!username) {
+    return res.status(401).json({message: 'Username missing.'});
+  }
+  const user = users.find((user) => user.username === username);
   if (user && user.password === req.params.password) {
     res.json({ message: "Logged in successfully" });
   } else {
