@@ -1,9 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import {getItems, getItemById, addItem, updateItem, deleteItem} from './items.js';
-import {addUser, getUserById, userLogin } from './users.js';
+import {addUser, getUserById, getUsers, userLogin } from './users.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 app.use('/sivusto', express.static('public'));
 
@@ -20,6 +23,7 @@ app.delete('/api/items/:id/', deleteItem);
 app.post('/api/users/', addUser);
 app.get('/api/users/:id', getUserById);
 app.post('/api/users/', userLogin);
+app.get('/api/users/', getUsers);
 
 
 app.get('/api/', (req, res) => {

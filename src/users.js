@@ -66,5 +66,9 @@ const userLogin = (req, res) => {
   }
 };
 
-export{addUser, getUserById, userLogin};
+const getUsers = (req, res) => {
+  res.json(users);
+};
+
+export{addUser, getUserById, userLogin, getUsers};
 
