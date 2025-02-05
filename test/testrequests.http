@@ -17,3 +17,11 @@ content-type: application/json;
 {
     "name": "Sitruuna"
 }
+
+POST http:/localhost:3000/api/users
+content-type: application/json;
+    {
+    .."username": "Uusi käyttäjä",
+    .."password": "salakala",
+    .."email": "newuser@example.com"
+  }
