@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import {getItems, getItemById, addItem, updateItem, deleteItem} from './items.js';
 import {addUser, getUserById, getUsers, userLogin } from './users.js';
+import {userRouter} from './user-router.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
@@ -20,10 +21,10 @@ app.put('/api/items/:id/', updateItem);
 app.delete('/api/items/:id/', deleteItem);
 
 
-app.post('/api/users/', addUser);
-app.get('/api/users/:id', getUserById);
-app.post('/api/users/', userLogin);
-app.get('/api/users/', getUsers);
+app.use('/api/users', userRouter);
+
+
+
 
 
 app.get('/api/', (req, res) => {
