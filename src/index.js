@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import {getItems, getItemById, addItem, updateItem, deleteItem} from './items.js';
-import {addUser, getUserById, getUsers, userLogin } from './users.js';
-import {userRouter} from './user-router.js';
+import userRouter from './routes/user-router.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;

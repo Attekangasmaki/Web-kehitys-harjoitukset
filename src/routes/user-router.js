@@ -8,11 +8,15 @@ import {
 const userRouter = express.Router();
 
 userRouter.route('/')
-  .get('/', getUsers)
-  .post('/api/users/', addUser)
-  .get('/api/users/:id', getUserById)
-  .post('/api/users/', userLogin);
+  .get(getUsers)
+  .post(addUser);
+
+userRouter.route('/:id')
+.get(getUserById)
 
 
+
+
+userRouter.post('/login', userLogin);
 
 export default userRouter;

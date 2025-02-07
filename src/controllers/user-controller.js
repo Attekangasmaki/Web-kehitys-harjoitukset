@@ -4,34 +4,20 @@
 //create a dummy login endpoint using POST method
 //check that the username and password match and return a success message if they do or an error message if they don't
 
-const users = [
-  {
-    id: 1,
-    username: "johndoe",
-    password: "password1",
-    email: "johndoe@example.com"
-  },
-  {
-    id: 2,
-    username: "janedoe",
-    password: "password2",
-    email: "janedoe@example.com"
-  },
-  {
-    id: 3,
-    username: "bobsmith",
-    password: "password3",
-    email: "bobsmith@example.com"
-  }
-];
+import { getAllUsers, selectUserById, insertUser, selectUserByNameAndPassword} from "../models/user-model.js";
 
-const addUser = (req, res) => {
+const getUsers = async (req, res) => {
+  const users = await getAllUsers();
+  res.json(users);
+};
+
+const addUser = async (req, res) => {
   console.log('addUser request body', req.body);
   const {username, password, email} = req.body;
   if (username && password && email) {
-    const latestId = users[users.length-1].id
-    const newUser = {id: latestId +1, username, password, email,};
-    users.push(newUser);
+
+    const newUser = {username, password, email,};
+    const result = await insertUser(newUser);
     res.status(201);
     return res.json({message: 'User added.'});
   }
@@ -41,34 +27,39 @@ const addUser = (req, res) => {
 };
 
 
-const getUserById = (req, res) => {
+const getUserById = async (req, res) => {
   console.log('getUserById', req.params.id);
-  const user = users.find((user => user.id == req.params.id));
-  console.log('User found:', user)
-  if (user) {
-    res.json(user);
-  } else {
-    res.status(404).json({message: "User not found"});
+  try{
+    const user = await selectUserById(req.params.id);
+    console.log('User found:', user)
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({message: "User not found"});
+    }
+  } catch (error) {
+    res.status(500).json({message: error.message});
   }
+
+
 };
 
 
-const userLogin = (req, res) => {
+const userLogin = async (req, res) => {
   const {username, password} = req.body;
   if (!username) {
     return res.status(401).json({message: 'Username missing.'});
   }
-  const user = users.find((user) => user.username === username);
-  if (user && user.password === req.params.password) {
-    res.json({ message: "Logged in successfully" });
+  const user = await selectUserByNameAndPassword(username, password);
+
+  if (user) {
+    res.json({message: 'login ok', user});
   } else {
-    res.status(404).json({ message: "Username or password incorrect" });
+    res.status(401).json({message: 'Bad username/password.'});
   }
 };
 
-const getUsers = (req, res) => {
-  res.json(users);
-};
+
 
 export{addUser, getUserById, userLogin, getUsers};
 
