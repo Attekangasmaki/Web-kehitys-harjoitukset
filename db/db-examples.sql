@@ -1,3 +1,5 @@
+-- Mysql client käynnistys komentoriviltä
+-- mysql -u root -pDBkahvi1
 use HealthDiary;
 
 

@@ -40,7 +40,7 @@ const insertUser = async (user) => {
       [user.username, user.password, user.email],
     );
 
-    if (rows.length === 0) {
+    if (result.length === 0) {
       throw new Error("User not found");
     }
     console.log('insertUser', result);
@@ -66,5 +66,5 @@ const selectUserByNameAndPassword = async (username, password) => {
   }
 };
 
-export {getAllUsers, selectUserById};
+export {getAllUsers, selectUserById, insertUser, selectUserByNameAndPassword };
 

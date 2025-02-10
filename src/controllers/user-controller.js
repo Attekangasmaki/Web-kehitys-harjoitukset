@@ -15,11 +15,10 @@ const addUser = async (req, res) => {
   console.log('addUser request body', req.body);
   const {username, password, email} = req.body;
   if (username && password && email) {
-
     const newUser = {username, password, email,};
     const result = await insertUser(newUser);
     res.status(201);
-    return res.json({message: 'User added.'});
+    return res.json({message: 'User added. id: ' + result});
   }
   res.status(400);
   return res.json({message: 'Request is missing some property.'});
